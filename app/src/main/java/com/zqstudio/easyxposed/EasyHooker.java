@@ -40,7 +40,6 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                String provider = (String) param.args[0];
 	                if (provider.equals(LocationManager.GPS_PROVIDER)) {
-	                    XposedBridge.log("Spoofing GPS enabled status for provider: " + provider);
 	                    param.setResult(true); 
 	                }
 	            }
@@ -50,8 +49,6 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                String name = (String) param.args[1];
 	                if (name.equals("location_mode")) {
-	                    XposedBridge.log("Settings.Secure.getInt called with name: " + name + " and default value: " + param.args[2]);
-	                    XposedBridge.log("Spoofing location_mode as enabled");
 	                    param.setResult(3); 
 	                }
 	            }
