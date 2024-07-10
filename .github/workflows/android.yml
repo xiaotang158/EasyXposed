@@ -25,7 +25,7 @@ jobs:
     - name: Clean Gradle cache and reinitialize wrapper
       run: |
         ./gradlew clean
-    
+        ./gradlew wrapper --gradle-version 3.5.3
     - name: Build with Gradle
       run: ./gradlew build  
     - name: Build APK
