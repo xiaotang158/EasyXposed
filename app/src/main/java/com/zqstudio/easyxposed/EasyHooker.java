@@ -35,7 +35,7 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 						showStack();
 					}
 				});
-		hookMethod(LocationManager.class, "isProviderEnabled", String.class, new XC_MethodHook() {
+		hookMethod("android.location.LocationManager", "isProviderEnabled", String.class, new XC_MethodHook() {
 	            @Override
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                String provider = (String) param.args[0];
@@ -44,7 +44,7 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	                }
 	            }
        	      });
-		hookMethod(Settings.Secure.class, "getInt", ContentResolver.class, String.class, int.class, new XC_MethodHook() {
+		hookMethod("android.provider.Settings$Secure", "getInt", ContentResolver.class, String.class, int.class, new XC_MethodHook() {
 	            @Override
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                String name = (String) param.args[1];
