@@ -26,15 +26,7 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	}
 
 	private void appHook(){
-		Class test = clazzForName("io.virtualapp.sandvxposed64");
-		hookMethod("com.ironsource.sdk.controller.IronSourceWebView$JSInterface",
-				"onAdWindowsClosed", test, new XC_MethodHook() {
-					@Override
-					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-						super.beforeHookedMethod(param);
-						showStack();
-					}
-				});
+
 		hookMethod("android.location.LocationManager", "isProviderEnabled", String.class, new XC_MethodHook() {
 	            @Override
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
