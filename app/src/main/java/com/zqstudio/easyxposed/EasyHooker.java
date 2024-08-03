@@ -21,7 +21,6 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 		// WARN：去LSP中确认，实际要被hook的应用包名
 
 		Tool.classLoader = lpparam.classLoader;
-		myLog("Hook Version = 0.1");
 		appHook();
 	}
 
@@ -36,6 +35,13 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	                }
 	            }
        	      });
+	        hookMethod("android.location.LocationManager", "isLocationEnabled", new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					param.setResult(true);
+			}
+		});
+
 		hookMethod("android.provider.Settings$Secure", "getInt", ContentResolver.class, String.class, int.class, new XC_MethodHook() {
 	            @Override
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
