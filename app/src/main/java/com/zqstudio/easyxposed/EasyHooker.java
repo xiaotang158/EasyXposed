@@ -51,5 +51,27 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	                }
 	            }
      	   });
+		hookMethod("android.os.ServiceManager", "getService", String.class, new XC_MethodHook() {
+		    @Override
+		    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+		        String name = (String) param.args[0];
+		        if (name.contains("service_fl_")) {
+		            param.setResult(null);
+		        }
+		    }
+		});
+		
+		hookMethod("android.os.IServiceManager", "getService", String.class, new XC_MethodHook() {
+		    @Override
+		    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+		        String name = (String) param.args[0];
+		        if (name.contains("service_fl_")) {
+		            param.setResult(null);
+		        }
+		    }
+		});
+
+	
+		
 	}
 }
