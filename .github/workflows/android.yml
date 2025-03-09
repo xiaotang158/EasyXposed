@@ -12,23 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: set up JDK 11
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
 
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Check Gradle Wrapper
+      run: ls -la
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Clean build directory  
-      run: |
-        ./gradlew clean  
-    - name: Build with Gradle
-      run: ./gradlew build  
+      run: ./gradlew clean  
+
     - name: Build APK
-      run: ./gradlew assembleDebug 
+      run: ./gradlew assembleDebug
+
+    - name: Check APK Output
+      run: ls -la app/build/outputs/apk/debug/
+
     - name: Upload APK
       uses: actions/upload-artifact@v2
       with:
