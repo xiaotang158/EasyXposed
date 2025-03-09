@@ -51,6 +51,7 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 	                }
 	            }
      	   });
+		//a8-12
 		hookMethod("android.os.ServiceManager", "getService", String.class, new XC_MethodHook() {
 		    @Override
 		    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -60,7 +61,8 @@ public final class EasyHooker implements IXposedHookLoadPackage {
 		        }
 		    }
 		});
-		
+
+		//a13+
 		hookMethod("android.os.IServiceManager", "getService", String.class, new XC_MethodHook() {
 		    @Override
 		    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
